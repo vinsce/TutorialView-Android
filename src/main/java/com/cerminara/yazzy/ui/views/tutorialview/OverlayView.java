@@ -209,6 +209,9 @@ public class OverlayView extends View {
 	}
 
 	public interface OnFinishedListener {
+		/**
+		 * Called when the user completes the tutorial
+		 */
 		void onFinished();
 	}
 

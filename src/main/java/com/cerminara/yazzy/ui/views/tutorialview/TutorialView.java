@@ -19,6 +19,10 @@ import android.widget.TextView;
 import com.cerminara.yazzy.ui.views.tutorialview.utils.ScreenUtils;
 
 /**
+ * Use {@link TutorialView} to insert a tutorial above your layout.
+ * Create the {@link TutorialView} and add a series of {@link Step} to build the tutorial (the steps are displayed to the user in the order they are inserted via TutorialView.addStep()).
+ * For each step, this view displays a circle around the target view and the specified text.
+ * <p>
  * Created by vinsce on 10/08/16 at 0.59.
  *
  * @author vinsce
@@ -33,7 +37,6 @@ public class TutorialView extends FrameLayout implements OverlayView.OnStepChang
 
 	private Animation mTextInAnimation, mTextOutAnimation, mButtonInAnimation, mButtonOutAnimation;
 	private Step mCurStep;
-
 
 	public TutorialView(Context context) {
 		super(context);
@@ -137,17 +140,35 @@ public class TutorialView extends FrameLayout implements OverlayView.OnStepChang
 
 	}
 
+	/**
+	 * Add a new {@link Step} to the tutorial
+	 *
+	 * @param step the {@link Step} to be added
+	 */
 	public void addStep(Step step) {
 		if (mOverlayView != null)
 			mOverlayView.addStep(step);
 	}
 
+	/**
+	 * Creates and adds a new {@link Step} to the tutorial using the provided values
+	 *
+	 * @param view     the target view
+	 * @param inWindow specifies if the position measurement should be related to the window (if true) or to the parent (if false)
+	 * @param scale    the scale factor of the circle in relation to the target view sizes
+	 * @param text     the text of the tutorial step
+	 */
 	public void addStep(View view, boolean inWindow, float scale, String text) {
 		if (mOverlayView != null)
 			mOverlayView.addStep(view, inWindow, scale, text);
 	}
 
-	public void setListener(OverlayView.OnFinishedListener listener) {
+	/**
+	 * Set the {@link com.cerminara.yazzy.ui.views.tutorialview.OverlayView.OnFinishedListener} that specifies what to do when the tutorial is completed (eg. write something on SharedPreferences)
+	 *
+	 * @param listener the {@link com.cerminara.yazzy.ui.views.tutorialview.OverlayView.OnFinishedListener}
+	 */
+	public void setOnFinishedListener(OverlayView.OnFinishedListener listener) {
 		if (mOverlayView != null)
 			mOverlayView.setListener(listener);
 	}
@@ -179,6 +200,11 @@ public class TutorialView extends FrameLayout implements OverlayView.OnStepChang
 	}
 
 
+	/**
+	 * Set the duration of the animation (changing position of the circle and text) in ms
+	 *
+	 * @param animationMS the new duration in milliseconds
+	 */
 	public void setAnimationMS(int animationMS) {
 		mTextInAnimation.setDuration(animationMS / 2);
 		mTextOutAnimation.setDuration(animationMS / 2);
@@ -188,6 +214,11 @@ public class TutorialView extends FrameLayout implements OverlayView.OnStepChang
 			mOverlayView.setAnimationMS(animationMS);
 	}
 
+	/**
+	 * Set the interpolator for the animation
+	 *
+	 * @param interpolator the new interpolator
+	 */
 	public void setAnimationInterpolator(Interpolator interpolator) {
 		mTextInAnimation.setInterpolator(interpolator);
 		mTextOutAnimation.setInterpolator(interpolator);
