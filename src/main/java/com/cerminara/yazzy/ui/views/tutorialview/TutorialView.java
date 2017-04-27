@@ -30,10 +30,9 @@ public class TutorialView extends FrameLayout implements OverlayView.OnStepChang
 	private LinearLayout mTextLayout;
 
 	private LayoutParams mTopLayoutParams, mBottomLayoutParams;
-	private int mAnimationMS = 600;
 
 	private Animation mTextInAnimation, mTextOutAnimation, mButtonInAnimation, mButtonOutAnimation;
-	private OverlayView.Step mCurStep;
+	private Step mCurStep;
 
 
 	public TutorialView(Context context) {
@@ -138,11 +137,11 @@ public class TutorialView extends FrameLayout implements OverlayView.OnStepChang
 
 	}
 
-	public void addStep(OverlayView.Step step) {
+	public void addStep(Step step) {
 		if (mOverlayView != null)
 			mOverlayView.addStep(step);
 	}
-	
+
 	public void addStep(View view, boolean inWindow, float scale, String text) {
 		if (mOverlayView != null)
 			mOverlayView.addStep(view, inWindow, scale, text);
@@ -154,23 +153,23 @@ public class TutorialView extends FrameLayout implements OverlayView.OnStepChang
 	}
 
 	@Override
-	public void beforeStepChanges(OverlayView.Step s1, final OverlayView.Step s2) {
+	public void beforeStepChanges(Step s1, final Step s2) {
 		mCurStep = s2;
 		mTextView.startAnimation(mTextOutAnimation);
 	}
 
 	@Override
-	public void afterStepChanges(OverlayView.Step s1, OverlayView.Step s2) {
+	public void afterStepChanges(Step s1, Step s2) {
 		mTextLayout.setVisibility(View.VISIBLE);
 	}
 
 	@Override
-	public void onFirstStepLoaded(OverlayView.Step s1) {
+	public void onFirstStepLoaded(Step s1) {
 		mCurStep = s1;
 		setRightLayoutParamsAndText(s1);
 	}
 
-	private void setRightLayoutParamsAndText(OverlayView.Step step) {
+	private void setRightLayoutParamsAndText(Step step) {
 		if (step.getCenterY() > getHeight() / 2) {
 			mTextLayout.setLayoutParams(mTopLayoutParams);
 		} else {
@@ -181,21 +180,20 @@ public class TutorialView extends FrameLayout implements OverlayView.OnStepChang
 
 
 	public void setAnimationMS(int animationMS) {
-		mAnimationMS = animationMS;
-		mTextInAnimation.setDuration(mAnimationMS / 2);
-		mTextOutAnimation.setDuration(mAnimationMS / 2);
-		mButtonInAnimation.setDuration(mAnimationMS / 2);
-		mButtonOutAnimation.setDuration(mAnimationMS / 2);
+		mTextInAnimation.setDuration(animationMS / 2);
+		mTextOutAnimation.setDuration(animationMS / 2);
+		mButtonInAnimation.setDuration(animationMS / 2);
+		mButtonOutAnimation.setDuration(animationMS / 2);
 		if (mOverlayView != null)
 			mOverlayView.setAnimationMS(animationMS);
 	}
 
-	public void setAnimationInterpolator(Interpolator interpoletor) {
-		mTextInAnimation.setInterpolator(interpoletor);
-		mTextOutAnimation.setInterpolator(interpoletor);
-		mButtonInAnimation.setInterpolator(interpoletor);
-		mButtonOutAnimation.setInterpolator(interpoletor);
+	public void setAnimationInterpolator(Interpolator interpolator) {
+		mTextInAnimation.setInterpolator(interpolator);
+		mTextOutAnimation.setInterpolator(interpolator);
+		mButtonInAnimation.setInterpolator(interpolator);
+		mButtonOutAnimation.setInterpolator(interpolator);
 		if (mOverlayView != null)
-			mOverlayView.setAnimationInterpoletor(interpoletor);
+			mOverlayView.setAnimationInterpolator(interpolator);
 	}
 }

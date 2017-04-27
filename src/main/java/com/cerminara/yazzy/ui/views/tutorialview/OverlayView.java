@@ -73,7 +73,7 @@ public class OverlayView extends View {
 					public void onAnimationUpdate(ValueAnimator animation) {
 						float value = (Float) (animation.getAnimatedValue());
 
-						mCurX = (int) (mCurStep.centerX + value * (mNextStep.centerX - mCurStep.centerX));
+						mCurX = (int) (mCurStep.getCenterX() + value * (mNextStep.getCenterX() - mCurStep.getCenterX()));
 						mCurY = (int) (mCurStep.getCenterY() + value * (mNextStep.getCenterY() - mCurStep.getCenterY()));
 						mCurR = (int) (mCurStep.getRadius() + value * (mNextStep.getRadius() - mCurStep.getRadius()));
 						invalidate();
@@ -131,7 +131,7 @@ public class OverlayView extends View {
 
 	public void nextStep() {
 		if (mNextStep == null)
-			onFinisced();
+			onFinished();
 		else
 			animator.start();
 	}
@@ -188,7 +188,7 @@ public class OverlayView extends View {
 		mListener = listener;
 	}
 
-	private void onFinisced() {
+	private void onFinished() {
 		if (mListener == null)
 			setVisibility(GONE);
 		else mListener.onFinished();
@@ -204,14 +204,15 @@ public class OverlayView extends View {
 		animator.setDuration(ms);
 	}
 
-	public void setAnimationInterpoletor(Interpolator interpoletor) {
-		animator.setInterpolator(interpoletor);
+	public void setAnimationInterpolator(Interpolator interpolator) {
+		animator.setInterpolator(interpolator);
 	}
 
 	public interface OnFinishedListener {
 		void onFinished();
 	}
 
+	@SuppressWarnings("WeakerAccess")
 	public interface OnStepChangedListener {
 		void beforeStepChanges(Step s1, Step s2);
 
@@ -220,43 +221,4 @@ public class OverlayView extends View {
 		void onFirstStepLoaded(Step s1);
 
 	}
-
-	public static class Step {
-		private int centerY = 300, centerX = 500, radius = 300;
-		private String text = "";
-
-		public int getCenterY() {
-			return centerY;
-		}
-
-		public void setCenterY(int y) {
-			this.centerY = y;
-		}
-
-		public int getCenterX() {
-			return centerX;
-		}
-
-		public void setCenterX(int x) {
-			this.centerX = x;
-		}
-
-		public int getRadius() {
-			return radius;
-		}
-
-		public void setRadius(int r) {
-			this.radius = r;
-		}
-
-		public String getText() {
-			return text;
-		}
-
-		public void setText(String text) {
-			this.text = text;
-		}
-	}
-
-
 }
