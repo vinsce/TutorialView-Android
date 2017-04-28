@@ -1,5 +1,9 @@
 # TutorialView-Android
 Code used in [Yazzy (Fake conversations)](https://play.google.com/store/apps/details?id=com.cerminara.yazzy) for the initial tutorial
+
+## Preview
+<img src="http://i.imgur.com/5pwUjuO.png" width="280"> <img src="http://i.imgur.com/OuFqphL.png" width="280"> <img src="http://i.imgur.com/PePvChw.png" width="280">
+
 ## How to use
 #### 1. Create a new TutorialView:
 ```TutorialView tutorialView = new TutorialView(this);```
