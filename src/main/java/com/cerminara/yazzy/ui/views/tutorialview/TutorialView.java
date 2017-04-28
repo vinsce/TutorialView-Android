@@ -1,8 +1,10 @@
 package com.cerminara.yazzy.ui.views.tutorialview;
 
 import android.content.Context;
+import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.support.annotation.ColorInt;
 import android.support.design.widget.FloatingActionButton;
 import android.util.AttributeSet;
 import android.view.Gravity;
@@ -137,7 +139,6 @@ public class TutorialView extends FrameLayout implements OverlayView.OnStepChang
 		});
 		setAnimationMS(600);
 		setAnimationInterpolator(new AnticipateOvershootInterpolator());
-
 	}
 
 	/**
@@ -226,5 +227,14 @@ public class TutorialView extends FrameLayout implements OverlayView.OnStepChang
 		mButtonOutAnimation.setInterpolator(interpolator);
 		if (mOverlayView != null)
 			mOverlayView.setAnimationInterpolator(interpolator);
+	}
+
+	/**
+	 * Changes the background color of the "next step" button in the tutorial.
+	 *
+	 * @param color the button background color
+	 */
+	public void setNextButtonBackgroundColor(@ColorInt int color) {
+		mNextButton.setBackgroundTintList(ColorStateList.valueOf(color));
 	}
 }
